@@ -1,13 +1,14 @@
 {
-"name":"My Apps",
-"short_name":"My Apps",
+"name":"My Notes",
+"short_name":"My Notes",
 "start_url":"/",
 "display":"standalone",
 "background_color":"#1f1611",
 "theme_color":"#1f1611",
+"orientation":"portrait",
 "icons":[
 {
-"src":"data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxyZWN0IHg9IjgwIiB5PSI0MCIgd2lkdGg9IjM1MCIgaGVpZ2h0PSI0MzIiIHJ4PSI0MCIgZmlsbD0iIzhiNWUzYyIvPjxyZWN0IHg9IjEyMCIgeT0iODAiIHdpZHRoPSIyODAiIGhlaWdodD0iMzUyIiByeD0iMjAiIGZpbGw9IiNmNWVlZTYiLz48L3N2Zz4=",
+"src":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgeD0iODAiIHk9IjQwIiB3aWR0aD0iMzUwIiBoZWlnaHQ9IjQzMiIgcng9IjQwIiBmaWxsPSIjOGI1ZTNjIi8+PHJlY3QgeD0iMTIwIiB5PSI4MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIzNTIiIHJ4PSIyMCIgZmlsbD0iI2Y1ZWVlNiIvPjwvc3ZnPg==",
 "sizes":"512x512",
 "type":"image/png"
 }
