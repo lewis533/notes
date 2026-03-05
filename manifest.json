@@ -1,0 +1,15 @@
+{
+"name":"My Notes",
+"short_name":"Notes",
+"start_url":"./",
+"display":"standalone",
+"background_color":"#2c1d14",
+"theme_color":"#2c1d14",
+"icons":[
+{
+"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3QgeD0iODAiIHk9IjQwIiB3aWR0aD0iMzYwIiBoZWlnaHQ9IjQzMiIgcng9IjQwIiBmaWxsPSIjOGI1ZTNjIi8+PHJlY3QgeD0iMTIwIiB5PSI4MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIzNTIiIHJ4PSIyMCIgZmlsbD0iI2Y1ZWVlNiIvPjwvc3ZnPg==",
+"sizes":"512x512",
+"type":"image/png"
+}
+]
+}
