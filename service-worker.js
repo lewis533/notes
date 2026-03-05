@@ -1,20 +1,23 @@
-const CACHE_NAME="journal-cache";
+const CACHE_NAME="journal-app-cache-v2";
 
-self.addEventListener("install",e=>{
-e.waitUntil(
-caches.open(CACHE_NAME).then(cache=>{
-return cache.addAll([
+const FILES_TO_CACHE=[
 "/",
-"/index.html"
-])
-})
-)
-})
+"/index.html",
+"/manifest.json"
+];
 
-self.addEventListener("fetch",e=>{
-e.respondWith(
-caches.match(e.request).then(response=>{
-return response||fetch(e.request)
+self.addEventListener("install",event=>{
+event.waitUntil(
+caches.open(CACHE_NAME).then(cache=>{
+return cache.addAll(FILES_TO_CACHE);
 })
-)
+);
+});
+
+self.addEventListener("fetch",event=>{
+event.respondWith(
+caches.match(event.request).then(response=>{
+return response || fetch(event.request);
 })
+);
+});
