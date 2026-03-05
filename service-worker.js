@@ -1,4 +1,4 @@
-const CACHE_NAME="journal-app-cache-v2";
+const CACHE_NAME="my-notes-cache-v5";
 
 const FILES_TO_CACHE=[
 "/",
