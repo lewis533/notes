@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>My Apps</title>
+<title>My Notes</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#1f1611">
 
 <style>
 
@@ -16,30 +19,6 @@ color:#f5eee6;
 font-family:Georgia,serif;
 }
 
-/* LOCK SCREEN */
-
-#lockScreen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#1f1611;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:9999;
-}
-
-#lockScreen input{
-padding:12px;
-font-size:18px;
-margin:10px;
-border-radius:8px;
-border:none;
-}
-
 /* TITLE */
 
 header{
@@ -47,7 +26,6 @@ text-align:center;
 font-size:48px;
 padding:25px;
 letter-spacing:4px;
-font-family:Georgia,serif;
 font-style:italic;
 color:#e6d5c3;
 text-shadow:1px 1px 2px #000;
@@ -57,7 +35,7 @@ text-shadow:1px 1px 2px #000;
 
 .container{
 padding:20px;
-max-width:850px;
+max-width:800px;
 margin:auto;
 }
 
@@ -118,36 +96,50 @@ border-radius:6px;
 cursor:pointer;
 }
 
+/* LOCK SCREEN */
+
+#lockScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#1f1611;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+#lockScreen input{
+padding:12px;
+font-size:18px;
+margin:10px;
+border-radius:8px;
+border:none;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- PASSWORD SCREEN -->
-
 <div id="lockScreen">
-
 <h2>Create / Enter Password</h2>
-
-<input type="password" id="passwordInput" placeholder="Password">
-
+<input type="password" id="passwordInput">
 <button onclick="unlock()">Enter</button>
-
 </div>
 
-<!-- TITLE -->
-
-<header>My Apps</header>
+<header>My Notes</header>
 
 <div class="container">
 
 <div style="text-align:center">
-
 <button class="voiceBtn" onclick="startVoice()">Voice</button>
 <button class="stopBtn" onclick="stopVoice()">Stop</button>
 <button class="writeBtn" onclick="toggleWrite()">Write</button>
-
 </div>
 
 <div id="writeBox" style="display:none">
@@ -160,9 +152,6 @@ cursor:pointer;
 </div>
 
 <script>
-
-let recognition
-let recording=false
 
 /* PASSWORD */
 
@@ -185,24 +174,22 @@ alert("Wrong password")
 
 }
 
-/* CLEAN TEXT */
+/* TEXT CLEANING */
 
 function cleanText(text){
 
 text=text.replace(/\b(um|uh|like|you know)\b/gi,"")
-
 text=text.replace(/\s+/g," ")
 
 return text.charAt(0).toUpperCase()+text.slice(1)
 
 }
 
-/* BETTER SWAHILI + BROKEN ENGLISH INTERPRETER */
+/* SWAHILI SIMPLE TRANSLATION */
 
 function translateSwahili(text){
 
-const dictionary={
-
+const dict={
 "leo":"today",
 "rafiki":"friend",
 "nyumbani":"at home",
@@ -215,23 +202,21 @@ const dictionary={
 "nataka":"i want",
 "furaha":"happy",
 "nzuri":"good",
-"mbaya":"bad",
-"sana":"very",
-"kidogo":"a little"
-
+"mbaya":"bad"
 }
 
 let words=text.toLowerCase().split(" ")
 
-words=words.map(w=>dictionary[w]||w)
+words=words.map(w=>dict[w]||w)
 
-let sentence=words.join(" ")
-
-return sentence.charAt(0).toUpperCase()+sentence.slice(1)
+return words.join(" ")
 
 }
 
 /* VOICE */
+
+let recognition
+let recording=false
 
 function startVoice(){
 
@@ -244,7 +229,6 @@ recognition.continuous=true
 recognition.interimResults=false
 
 recording=true
-
 recognition.start()
 
 recognition.onresult=function(event){
@@ -289,9 +273,8 @@ text:text
 localStorage.setItem("entries",JSON.stringify(entries))
 
 renderEntries()
-}
 
-/* MANUAL WRITE */
+}
 
 function saveManual(){
 
@@ -299,11 +282,10 @@ let text=document.getElementById("manualText").value
 
 if(!text) return
 
-text=cleanText(translateSwahili(text))
-
-saveEntry(text)
+saveEntry(cleanText(translateSwahili(text)))
 
 document.getElementById("manualText").value=""
+
 }
 
 /* DELETE */
@@ -317,6 +299,7 @@ entries.splice(i,1)
 localStorage.setItem("entries",JSON.stringify(entries))
 
 renderEntries()
+
 }
 
 /* RENDER */
@@ -331,14 +314,9 @@ entries.forEach((e,i)=>{
 
 html+=`
 <div class="entry">
-
 <div class="date">${e.date}</div>
 <div class="text">${e.text}</div>
-
-<button class="delete" onclick="deleteEntry(${i})">
-Delete
-</button>
-
+<button class="delete" onclick="deleteEntry(${i})">Delete</button>
 </div>
 `
 
@@ -360,6 +338,10 @@ box.style.display==="none"?"block":"none"
 }
 
 renderEntries()
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register("service-worker.js")
+}
 
 </script>
 
